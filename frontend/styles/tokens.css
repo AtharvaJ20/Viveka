@@ -1,0 +1,224 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Design tokens — Personal Equity Research Platform
+   DS-20260925-001 · v1.0 · frontend-design · 2026-09-25
+
+   Usage:
+   - Import in root layout: @import './tokens.css';
+   - Reference as: color: var(--ink-1), background: var(--canvas), etc.
+   - Tailwind config maps these via CSS variable references (see design-system.md §11)
+   - NEVER use literal hex values in components — always use a token name.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ─── LIGHT MODE (default) ───────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+
+  /* Surface */
+  --canvas:       #FAFAF9;
+  --surface:      #FFFFFF;
+  --surface-warm: #F5F1EC;
+
+  /* Ink */
+  --ink-1: #1A1714;
+  --ink-2: #635D56;
+  --ink-3: #9C9288;
+
+  /* Borders */
+  --border:        #E4DFD8;
+  --border-strong: #CEC8C0;
+
+  /* Brand — India ink blue */
+  --brand:        #1B4E82;
+  --brand-subtle: #EAF1F8;
+  --brand-on:     #FFFFFF;
+
+  /* Accent — burnished copper */
+  --copper:        #B87829;
+  --copper-subtle: #F5EDE1;
+  --copper-on:     #FFFFFF;
+
+  /* Semantic — price movement */
+  --pos:        #1A6B3C;
+  --pos-subtle: #E8F5EE;
+  --neg:        #B91C1C;
+  --neg-subtle: #FEF2F2;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(26, 23, 20, 0.06);
+  --shadow-md: 0 2px 8px rgba(26, 23, 20, 0.08), 0 1px 2px rgba(26, 23, 20, 0.04);
+  --shadow-lg: 0 4px 24px rgba(26, 23, 20, 0.10), 0 2px 6px rgba(26, 23, 20, 0.06);
+
+  /* Radius */
+  --r-sm:   4px;
+  --r-md:   8px;
+  --r-lg:   12px;
+  --r-full: 9999px;
+
+  /* Space — 4px base unit */
+  --s1:  0.25rem;   /*  4px */
+  --s2:  0.5rem;    /*  8px */
+  --s3:  0.75rem;   /* 12px */
+  --s4:  1rem;      /* 16px */
+  --s5:  1.25rem;   /* 20px */
+  --s6:  1.5rem;    /* 24px */
+  --s8:  2rem;      /* 32px */
+  --s10: 2.5rem;    /* 40px */
+  --s12: 3rem;      /* 48px */
+  --s16: 4rem;      /* 64px */
+  --s20: 5rem;      /* 80px */
+
+  /* Type scale */
+  --text-xs:      0.6875rem;  /* 11px */
+  --text-sm:      0.75rem;    /* 12px */
+  --text-base-sm: 0.8125rem;  /* 13px */
+  --text-ui:      0.875rem;   /* 14px */
+  --text-body:    1rem;       /* 16px */
+  --text-lg:      1.125rem;   /* 18px */
+  --text-xl:      1.25rem;    /* 20px */
+  --text-2xl:     1.5rem;     /* 24px */
+  --text-3xl:     1.875rem;   /* 30px */
+  --text-4xl:     2.25rem;    /* 36px */
+  --text-5xl:     3rem;       /* 48px */
+
+  /* Line heights */
+  --lh-tight:   1.2;
+  --lh-snug:    1.35;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.65;
+}
+
+/* ─── DARK MODE (system preference) ─────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --canvas:       #17140F;
+    --surface:      #1E1B16;
+    --surface-warm: #252118;
+
+    --ink-1: #EDE9E4;
+    --ink-2: #A09690;
+    --ink-3: #6B6560;
+
+    --border:        #2E2A24;
+    --border-strong: #3D3930;
+
+    --brand:        #4A90D9;
+    --brand-subtle: #152035;
+    --brand-on:     #FFFFFF;
+
+    --copper:        #D4923A;
+    --copper-subtle: #2A1C08;
+    --copper-on:     #FFFFFF;
+
+    --pos:        #22C55E;
+    --pos-subtle: #0A2014;
+    --neg:        #EF4444;
+    --neg-subtle: #200A0A;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.30), 0 1px 2px rgba(0, 0, 0, 0.20);
+    --shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* ─── DARK MODE (explicit toggle) ───────────────────────────────────── */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --canvas:       #17140F;
+  --surface:      #1E1B16;
+  --surface-warm: #252118;
+
+  --ink-1: #EDE9E4;
+  --ink-2: #A09690;
+  --ink-3: #6B6560;
+
+  --border:        #2E2A24;
+  --border-strong: #3D3930;
+
+  --brand:        #4A90D9;
+  --brand-subtle: #152035;
+  --brand-on:     #FFFFFF;
+
+  --copper:        #D4923A;
+  --copper-subtle: #2A1C08;
+  --copper-on:     #FFFFFF;
+
+  --pos:        #22C55E;
+  --pos-subtle: #0A2014;
+  --neg:        #EF4444;
+  --neg-subtle: #200A0A;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.30), 0 1px 2px rgba(0, 0, 0, 0.20);
+  --shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* ─── BASE RESETS ────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink-1);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-size: var(--text-body);
+  line-height: var(--lh-relaxed);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+img, video {
+  max-width: 100%;
+}
+
+/* ─── UTILITY CLASSES ────────────────────────────────────────────────── */
+
+/* Tabular numbers — MUST be applied to all financial figures in columns */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Display face (Lora) */
+.font-display {
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+}
+
+/* Positive / negative price coloring */
+.text-pos { color: var(--pos); }
+.text-neg { color: var(--neg); }
+.text-muted { color: var(--ink-3); }
+
+/* Focus visible — applied globally */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* ─── MOTION ─────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,26 @@
+# Viveka — Caddy reverse proxy config
+# Replace REPLACE_WITH_YOUR_DOMAIN with the actual domain pointing to this instance.
+# Caddy provisions TLS automatically via Let's Encrypt; port 80 and 443 must be reachable.
+
+REPLACE_WITH_YOUR_DOMAIN {
+
+    # ── Security headers ─────────────────────────────────────────────────────
+    # SR-AUTH-012: HSTS required — Hanuman security review SEC-20260925-001
+    header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    header X-Robots-Tag "noindex, nofollow"
+    header -Server
+
+    # ── API — FastAPI (Phase 0+, always active) ──────────────────────────────
+    reverse_proxy /api/* localhost:8000 {
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Real-IP {remote_host}
+    }
+
+    # ── Frontend — Next.js (Phase 1; uncomment once Arjun's scaffold ships) ──
+    # reverse_proxy /* localhost:3000 {
+    #     header_up X-Forwarded-For {remote_host}
+    # }
+}
+
+# Redirect bare http:// to https:// (Caddy handles this automatically when a
+# domain block has no explicit 'http://' listener, but stated here for clarity)

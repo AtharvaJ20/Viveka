@@ -1,0 +1,40 @@
+[Unit]
+Description=Viveka Stock Research API
+Documentation=file:///srv/viveka/deploy/runbook.md
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=viveka
+Group=viveka
+WorkingDirectory=/srv/viveka/backend
+
+# Environment variables are in /srv/viveka/.env (never committed to git)
+EnvironmentFile=/srv/viveka/.env
+
+# One worker in Phase 0 — APScheduler (Phase 1) must not fork across workers
+ExecStart=/srv/viveka/venv/bin/uvicorn app.main:app \
+    --host 127.0.0.1 \
+    --port 8000 \
+    --workers 1 \
+    --no-access-log \
+    --timeout-keep-alive 30
+
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+
+StandardOutput=append:/var/log/viveka/api.log
+StandardError=append:/var/log/viveka/api.log
+
+# Systemd hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+# Allow writing only to log and document directories
+ReadWritePaths=/var/log/viveka /data/documents
+
+[Install]
+WantedBy=multi-user.target
