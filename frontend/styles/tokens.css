@@ -87,42 +87,7 @@
   --lh-relaxed: 1.65;
 }
 
-/* ─── DARK MODE (system preference) ─────────────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-
-    --canvas:       #17140F;
-    --surface:      #1E1B16;
-    --surface-warm: #252118;
-
-    --ink-1: #EDE9E4;
-    --ink-2: #A09690;
-    --ink-3: #6B6560;
-
-    --border:        #2E2A24;
-    --border-strong: #3D3930;
-
-    --brand:        #4A90D9;
-    --brand-subtle: #152035;
-    --brand-on:     #FFFFFF;
-
-    --copper:        #D4923A;
-    --copper-subtle: #2A1C08;
-    --copper-on:     #FFFFFF;
-
-    --pos:        #22C55E;
-    --pos-subtle: #0A2014;
-    --neg:        #EF4444;
-    --neg-subtle: #200A0A;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
-    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.30), 0 1px 2px rgba(0, 0, 0, 0.20);
-    --shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
-  }
-}
-
-/* ─── DARK MODE (explicit toggle) ───────────────────────────────────── */
+/* ─── DARK MODE (explicit toggle only — OS preference intentionally ignored) ── */
 :root[data-theme="dark"] {
   color-scheme: dark;
 
