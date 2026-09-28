@@ -7,6 +7,7 @@ from app.db.models.auth import User, UserSession
 from app.db.models.documents import Document, DocumentPage, ExtractedFigure
 from app.db.models.market import (
     Company,
+    NewsItem,
     PriceData,
     Sector,
     SectorMapping,
@@ -29,6 +30,7 @@ __all__ = [
     "SectorMapping",
     "PriceData",
     "TradingCalendar",
+    "NewsItem",
     "Document",
     "DocumentPage",
     "ExtractedFigure",

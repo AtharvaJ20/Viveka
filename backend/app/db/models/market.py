@@ -67,6 +67,9 @@ class Company(Base):
     watchlist_entries: Mapped[list["Watchlist"]] = relationship(  # type: ignore[name-defined]
         "Watchlist", back_populates="company"
     )
+    news_items: Mapped[list["NewsItem"]] = relationship(
+        "NewsItem", back_populates="company"
+    )
 
 
 class SectorMapping(Base):
@@ -109,6 +112,39 @@ class PriceData(Base):
     )
 
     company: Mapped[Company] = relationship("Company", back_populates="price_data")
+
+
+class NewsItem(Base):
+    """Exchange announcement or financial news item fetched by REQ-021.
+
+    UNIQUE(url) enforces deduplication — INSERT ... ON CONFLICT DO NOTHING
+    makes repeated fetches idempotent. Both company_id and ticker are nullable:
+    company_id is populated when the announcement maps to a tracked company;
+    ticker holds the raw symbol from the source when a match hasn't been made.
+    """
+    __tablename__ = "news_items"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    company_id: Mapped[int | None] = mapped_column(ForeignKey("companies.id"), nullable=True)
+    ticker: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    exchange: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    source_type: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="exchange_announcement"
+    )
+    headline: Mapped[str] = mapped_column(Text, nullable=False)
+    source_name: Mapped[str] = mapped_column(String(100), nullable=False)
+    url: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
+    published_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
+    )
+    fetched_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now()
+    )
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now()
+    )
+
+    company: Mapped[Company | None] = relationship("Company", back_populates="news_items")
 
 
 class TradingCalendar(Base):
