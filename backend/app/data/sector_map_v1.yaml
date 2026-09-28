@@ -1,0 +1,166 @@
+# Sector-to-company mapping for Phase 1 OHLCV ingestion and sector ranking.
+#
+# Data source: NIFTY sectoral index constituents published by NSE India.
+# Reference: https://www.nseindia.com/products-services/indices-sectoral-indices
+# Effective date: 2026-09-01
+#
+# Decision D2 (2026-09-26): map_version is stored in sectors.version (INT = 1).
+# The UNIQUE(name, classification_source, version) constraint on the sectors
+# table is the canonical version key. No column is added to sector_mappings;
+# no separate sector_map_versions table is needed. The ranking layer reads
+# sector.version at query time and exposes it as SectorRank.map_version
+# (e.g. "v1"). See INBOX.md 2026-09-26 14:10 for the full decision record.
+#
+# Ticker format: bare NSE symbol with no .NS suffix. The DataFetcher
+# (app.fetchers.nse_yfinance) appends .NS before calling yfinance.
+# Special characters in tickers (hyphens, ampersands) are quoted below.
+#
+# Company names: loader.py sets name = ticker_nse as a placeholder.
+# Full company names can be enriched in a later task without re-running
+# the loader.
+
+version: 1
+classification_source: "NIFTY_INDEX"
+effective_date: "2026-09-01"
+
+sectors:
+
+  - name: "Banking"
+    # Source: Nifty Bank index (NSE) — 12 large-cap private and public sector banks.
+    tickers:
+      - HDFCBANK
+      - ICICIBANK
+      - SBIN
+      - AXISBANK
+      - KOTAKBANK
+      - INDUSINDBK
+      - BANDHANBNK
+      - PNB
+      - BANKBARODA
+      - FEDERALBNK
+      - IDFCFIRSTB
+      - AUBANK
+
+  - name: "Information Technology"
+    # Source: Nifty IT index (NSE) — 10 large-cap IT services and software companies.
+    tickers:
+      - TCS
+      - INFY
+      - HCLTECH
+      - WIPRO
+      - TECHM
+      - LTIM
+      - MPHASIS
+      - COFORGE
+      - PERSISTENT
+      - OFSS
+
+  - name: "Pharmaceuticals"
+    # Source: Nifty Pharma index (NSE) — 10 pharma and specialty chemicals companies.
+    tickers:
+      - SUNPHARMA
+      - DRREDDY
+      - CIPLA
+      - DIVISLAB
+      - AUROPHARMA
+      - TORNTPHARM
+      - LUPIN
+      - IPCALAB
+      - ALKEM
+      - BIOCON
+
+  - name: "Automobile"
+    # Source: Nifty Auto index (NSE) — 10 passenger, commercial, and 2W makers.
+    tickers:
+      - MARUTI
+      - TATAMOTORS
+      - "M&M"
+      - "BAJAJ-AUTO"
+      - HEROMOTOCO
+      - EICHERMOT
+      - TVSMOTOR
+      - ASHOKLEY
+      - BALKRISIND
+      - MOTHERSON
+
+  - name: "FMCG"
+    # Source: Nifty FMCG index (NSE) — 10 consumer staples companies.
+    tickers:
+      - HINDUNILVR
+      - ITC
+      - NESTLEIND
+      - BRITANNIA
+      - DABUR
+      - GODREJCP
+      - MARICO
+      - COLPAL
+      - EMAMILTD
+      - TATACONSUM
+
+  - name: "Energy"
+    # Source: Nifty Energy index (NSE) — 10 oil, gas, and power companies.
+    tickers:
+      - RELIANCE
+      - ONGC
+      - NTPC
+      - POWERGRID
+      - GAIL
+      - BPCL
+      - IOC
+      - TATAPOWER
+      - ADANIPOWER
+      - PETRONET
+
+  - name: "Metals"
+    # Source: Nifty Metal index (NSE) — 10 steel, aluminium, and mining companies.
+    tickers:
+      - TATASTEEL
+      - JSWSTEEL
+      - HINDALCO
+      - VEDL
+      - COALINDIA
+      - NMDC
+      - SAIL
+      - NATIONALUM
+      - HINDZINC
+      - APLAPOLLO
+
+  - name: "Capital Goods"
+    # Source: Nifty Capital Goods / Nifty India Manufacturing index (NSE).
+    tickers:
+      - LT
+      - SIEMENS
+      - ABB
+      - BHEL
+      - CUMMINSIND
+      - HAVELLS
+      - THERMAX
+      - BEL
+      - GRINDWELL
+      - CGPOWER
+
+  - name: "Real Estate"
+    # Source: Nifty Realty index (NSE) — 8 residential and commercial developers.
+    tickers:
+      - DLF
+      - GODREJPROP
+      - PRESTIGE
+      - OBEROIRLTY
+      - PHOENIXLTD
+      - SOBHA
+      - BRIGADE
+      - LODHA
+
+  - name: "Consumer Durables"
+    # Source: Nifty India Consumer / Consumer Durables index (NSE).
+    tickers:
+      - TITAN
+      - VOLTAS
+      - WHIRLPOOL
+      - BATA
+      - CROMPTON
+      - BAJAJELEC
+      - AMBER
+      - DIXON
+      - VGUARD
+      - ORIENTELEC

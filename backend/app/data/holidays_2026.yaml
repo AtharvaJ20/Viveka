@@ -1,0 +1,108 @@
+# NSE and BSE trading holidays for 2026.
+#
+# Floating holidays (type: estimated) should be verified against the official exchange
+# calendar before the date approaches:
+#   NSE: https://www.nseindia.com/products-services/equity-market-trading-holidays
+#   BSE: https://www.bseindia.com/static/markets/MarketInfo/ExchHolidays.aspx
+#
+# Day-of-week notes for 2026 (reference: Jan 1, 2026 = Thursday):
+#   Jan 26 (Republic Day)    = Monday
+#   Apr 03 (Good Friday)     = Friday   [Easter Apr 05, 2026]
+#   Apr 14 (Ambedkar Jayanti)= Tuesday  [fixed: always Apr 14]
+#   May 01 (Maharashtra Day) = Friday   [fixed: always May 1]
+#   Aug 15 (Independence Day)= Saturday [also handled by weekend check]
+#   Oct 02 (Gandhi Jayanti)  = Friday   [fixed: always Oct 2]
+#   Oct 29 (Diwali Muhurat)  = Thursday [per PRD REQ-003 — verify before date]
+#   Dec 25 (Christmas)       = Friday
+
+NSE:
+  - date: "2026-01-26"
+    name: "Republic Day"
+    type: fixed
+
+  - date: "2026-03-25"
+    name: "Holi"
+    type: estimated
+
+  - date: "2026-04-03"
+    name: "Good Friday"
+    type: fixed
+
+  - date: "2026-04-14"
+    name: "Dr. B.R. Ambedkar Jayanti"
+    type: fixed
+
+  - date: "2026-05-01"
+    name: "Maharashtra Day"
+    type: fixed
+
+  - date: "2026-08-15"
+    name: "Independence Day"
+    type: fixed
+
+  - date: "2026-10-02"
+    name: "Gandhi Jayanti"
+    type: fixed
+
+  - date: "2026-10-29"
+    name: "Diwali (Laxmi Puja / Muhurat)"
+    type: estimated
+
+  - date: "2026-10-30"
+    name: "Diwali (Balipratipada)"
+    type: estimated
+
+  - date: "2026-11-27"
+    name: "Gurunanak Jayanti"
+    type: estimated
+
+  - date: "2026-12-25"
+    name: "Christmas Day"
+    type: fixed
+
+# BSE holidays are nearly identical to NSE; minor differences should be
+# updated from the official BSE calendar when they arise.
+BSE:
+  - date: "2026-01-26"
+    name: "Republic Day"
+    type: fixed
+
+  - date: "2026-03-25"
+    name: "Holi"
+    type: estimated
+
+  - date: "2026-04-03"
+    name: "Good Friday"
+    type: fixed
+
+  - date: "2026-04-14"
+    name: "Dr. B.R. Ambedkar Jayanti"
+    type: fixed
+
+  - date: "2026-05-01"
+    name: "Maharashtra Day"
+    type: fixed
+
+  - date: "2026-08-15"
+    name: "Independence Day"
+    type: fixed
+
+  - date: "2026-10-02"
+    name: "Gandhi Jayanti"
+    type: fixed
+
+  - date: "2026-10-29"
+    name: "Diwali (Laxmi Puja / Muhurat)"
+    type: estimated
+
+  - date: "2026-10-30"
+    name: "Diwali (Balipratipada)"
+    type: estimated
+
+  - date: "2026-11-27"
+    name: "Gurunanak Jayanti"
+    type: estimated
+
+  - date: "2026-12-25"
+    name: "Christmas Day"
+    type: fixed

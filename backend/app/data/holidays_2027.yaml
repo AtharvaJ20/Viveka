@@ -1,0 +1,93 @@
+# NSE and BSE trading holidays for 2027.
+#
+# Several fixed-date Indian holidays fall on weekends in 2027 — they are
+# included for completeness (the DB seeder records them) but is_trading_day()
+# will return False for them regardless via the weekend check.
+#
+# Floating holidays (type: estimated) should be verified against the official
+# exchange calendar before the date approaches:
+#   NSE: https://www.nseindia.com/products-services/equity-market-trading-holidays
+#   BSE: https://www.bseindia.com/static/markets/MarketInfo/ExchHolidays.aspx
+#
+# Day-of-week notes for 2027 (reference: Jan 1, 2027 = Friday):
+#   Jan 26 (Republic Day)    = Tuesday  [fixed]
+#   Apr 02 (Good Friday)     = Friday   [estimated: Easter ~Apr 4, 2027]
+#   Apr 14 (Ambedkar Jayanti)= Wednesday[fixed: always Apr 14]
+#   May 01 (Maharashtra Day) = Saturday [fixed — weekend, included for completeness]
+#   Oct 02 (Gandhi Jayanti)  = Saturday [fixed — weekend, included for completeness]
+#   Nov 17 (Diwali Muhurat)  = Wednesday[estimated]
+#   Dec 25 (Christmas)       = Saturday [fixed — weekend, included for completeness]
+
+NSE:
+  - date: "2027-01-26"
+    name: "Republic Day"
+    type: fixed
+
+  - date: "2027-03-17"
+    name: "Holi"
+    type: estimated
+
+  - date: "2027-04-02"
+    name: "Good Friday"
+    type: estimated
+
+  - date: "2027-04-14"
+    name: "Dr. B.R. Ambedkar Jayanti"
+    type: fixed
+
+  - date: "2027-05-01"
+    name: "Maharashtra Day"
+    type: fixed
+
+  - date: "2027-10-02"
+    name: "Gandhi Jayanti"
+    type: fixed
+
+  - date: "2027-11-17"
+    name: "Diwali (Laxmi Puja / Muhurat)"
+    type: estimated
+
+  - date: "2027-11-18"
+    name: "Diwali (Balipratipada)"
+    type: estimated
+
+  - date: "2027-12-25"
+    name: "Christmas Day"
+    type: fixed
+
+BSE:
+  - date: "2027-01-26"
+    name: "Republic Day"
+    type: fixed
+
+  - date: "2027-03-17"
+    name: "Holi"
+    type: estimated
+
+  - date: "2027-04-02"
+    name: "Good Friday"
+    type: estimated
+
+  - date: "2027-04-14"
+    name: "Dr. B.R. Ambedkar Jayanti"
+    type: fixed
+
+  - date: "2027-05-01"
+    name: "Maharashtra Day"
+    type: fixed
+
+  - date: "2027-10-02"
+    name: "Gandhi Jayanti"
+    type: fixed
+
+  - date: "2027-11-17"
+    name: "Diwali (Laxmi Puja / Muhurat)"
+    type: estimated
+
+  - date: "2027-11-18"
+    name: "Diwali (Balipratipada)"
+    type: estimated
+
+  - date: "2027-12-25"
+    name: "Christmas Day"
+    type: fixed

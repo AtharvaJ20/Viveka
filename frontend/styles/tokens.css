@@ -97,7 +97,7 @@
 
   --ink-1: #EDE9E4;
   --ink-2: #A09690;
-  --ink-3: #6B6560;
+  --ink-3: #8A8580;
 
   --border:        #2E2A24;
   --border-strong: #3D3930;
@@ -174,10 +174,30 @@ img, video {
   border-radius: var(--r-sm);
 }
 
+/* ─── UTILITY CLASSES (additional) ──────────────────────────────────── */
+
+/* Visually hidden but accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 /* ─── MOTION ─────────────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
 }
 
 @media (prefers-reduced-motion: reduce) {

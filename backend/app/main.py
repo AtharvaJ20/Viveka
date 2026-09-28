@@ -7,8 +7,14 @@ Security controls wired here:
 - Generic Exception handler: returns {"detail": "Internal server error"} — no stack traces (SR-AUTH-010)
 - CORS: explicit allow_headers list, not wildcard (SR-AUTH-013)
 - /docs and /redoc disabled in production
+
+Scheduler:
+- AsyncIOScheduler starts in lifespan startup and shuts down on exit (T-BHM-01).
+- Scheduler reference stored at app.state.scheduler.
 """
 import logging
+from contextlib import asynccontextmanager
+from typing import AsyncIterator
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,9 +23,11 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
 from app.api.v1.auth import router as auth_router
+from app.api.v1.reports import router as reports_router
 from app.config import settings
 from app.limiter import limiter
 from app.middleware import SecurityHeadersMiddleware
+from app.scheduler import _set_pipeline_fn, create_scheduler
 
 logger = logging.getLogger(__name__)
 
@@ -35,10 +43,30 @@ async def _unhandled_exception_handler(request: Request, exc: Exception) -> JSON
     return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    """Start the daily briefing scheduler on startup; shut it down on exit."""
+    # Lazy import: daily_briefing → registry → nse_yfinance requires yfinance.
+    # Importing at module load time breaks conftest (yfinance not installed in test env).
+    from app.jobs.daily_briefing import run_daily_briefing  # noqa: PLC0415
+
+    _set_pipeline_fn(run_daily_briefing)
+    scheduler = create_scheduler()
+    scheduler.start()
+    app.state.scheduler = scheduler
+    logger.info("APScheduler started")
+    try:
+        yield
+    finally:
+        scheduler.shutdown(wait=False)
+        logger.info("APScheduler stopped")
+
+
 app = FastAPI(
     title="Viveka",
     description="Personal Stock Research & Monitoring Agent",
     version="0.1.0",
+    lifespan=lifespan,
     docs_url="/docs" if settings.is_development else None,
     redoc_url="/redoc" if settings.is_development else None,
 )
@@ -64,6 +92,7 @@ app.add_exception_handler(Exception, _unhandled_exception_handler)  # type: igno
 
 # --- Routers ---
 app.include_router(auth_router, prefix="/api/v1")
+app.include_router(reports_router, prefix="/api/v1")
 
 
 @app.get("/health", tags=["ops"])
